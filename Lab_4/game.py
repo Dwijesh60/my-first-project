@@ -31,7 +31,15 @@ PLAYER_STEP, GHOST_STEP = 0.14, 0.17
 
 def ghost_color(name, mode):
     """Return an (r, g, b) colour override for a ghost, or None to keep the default."""
-    pass
+    if mode == "frightened":
+        colors = {
+            "blinky": (70, 130, 255),
+            "pinky": (180, 90, 255),
+            "inky": (50, 220, 180),
+            "clyde": (255, 150, 60),
+        }
+        return colors.get(name)
+    return None
 
 
 def on_pellet_eaten(score, pellets_left):
@@ -157,7 +165,7 @@ class Game:
             return
         self.pellets.remove(cell)
         self.score += 10
-        if MAZE[cell[0]][cell[1]] == "O":
+        if MAZE[cell[0]][cell[1]] == "o":
             self.score += 40
             self.fright_left = FRIGHT_SECONDS
             for ghost in self.ghosts:
